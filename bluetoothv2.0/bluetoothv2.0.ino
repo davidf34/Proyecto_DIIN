@@ -7,7 +7,7 @@
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
 #define LED 23
-#define LED_OFF 21
+#define LED_OFF 19
 int band=20;
 BluetoothSerial BT; // Objeto Bluetooth
 void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
@@ -25,21 +25,21 @@ void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
     delay(1000);
     digitalWrite(LED,LOW);
     band=0;
-    
-    while(band==0){
-      digitalWrite(LED,HIGH);
-      delay(1000);
-      digitalWrite(LED,LOW);
-      delay(1000);
-      esp_spp_cb_event_t event;
-      band2=1;
-      if(event == ESP_SPP_CLOSE_EVT){
-        band=1;
-        Serial.println("ya no Valimos VERGA");
-        delay(1000);
-        }  
-        Serial.println("Valimos BERGA");
-    }
+//    
+//    while(band==0){
+//      digitalWrite(LED,HIGH);
+//      delay(1000);
+//      digitalWrite(LED,LOW);
+//      delay(1000);
+//      esp_spp_cb_event_t event;
+//      band2=1;
+//      if(event == ESP_SPP_CLOSE_EVT){
+//        band=1;
+//        Serial.println("ya no Valimos VERGA");
+//        delay(1000);
+//        }  
+//        Serial.println("Valimos BERGA");
+//    }
     
   }
   else if (event == ESP_SPP_CLOSE_EVT  ) {
