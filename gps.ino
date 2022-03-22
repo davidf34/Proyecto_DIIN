@@ -22,7 +22,7 @@ void setup() {
   //Begin serial communication Arduino IDE (Serial Monitor)
 
   //Begin serial communication Neo6mGPS
-  neogps.begin(9600, SERIAL_8N1, RXD2, TXD2);
+  neogps.begin(115200, SERIAL_8N1, RXD2, TXD2);
   
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
@@ -63,7 +63,7 @@ void loop() {
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(0, 0);
     display.setTextSize(3);
-    display.print("No Data");
+    display.print("Que diceeeee");
     display.display();
   }  
   
@@ -115,7 +115,7 @@ void print_speed()
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(0, 0);
     display.setTextSize(3);
-    display.print("No Data");
+    display.print("BNA LA RATA");
     display.display();
   }  
 
