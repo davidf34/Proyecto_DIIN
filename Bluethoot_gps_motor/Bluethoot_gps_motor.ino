@@ -1,17 +1,16 @@
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <TinyGPS++.h>
-<<<<<<< HEAD
+
 #include "BluetoothSerial.h"
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
-#define LED 23
-#define LED_OFF 19
-int band=20;
-=======
+#define LED_CONECTADO 23
+#define LED_DESCONECTADO 19
+#define MOTOR_ON  4
+#define MOTOR_OFF 5
 
->>>>>>> c545c9f57e5761569359a7dcf1412dce04ac2bf8
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -24,103 +23,46 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define RXD2 16
 #define TXD2 17
 HardwareSerial neogps(1);
-<<<<<<< HEAD
-TinyGPSPlus gps;
 
+int band_on;
+int band_off;
 BluetoothSerial BT; // Objeto Bluetooth
-void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
- /* if (event == ESP_SPP_START_EVT) {
-    Serial.println("Inicializado SPP");
-  }*/
- if (event == ESP_SPP_SRV_OPEN_EVT ) {
-    Serial.println("Cliente conectado");
-    BT.println("1");
-    digitalWrite(LED,HIGH);
-    delay(1000);
-    digitalWrite(LED,LOW);
-    delay(500);
-    digitalWrite(LED,HIGH);
-    delay(1000);
-    digitalWrite(LED,LOW);
-    band=0;
-//    
-//    while(band==0){
-//      digitalWrite(LED,HIGH);
-//      delay(1000);
-//      digitalWrite(LED,LOW);
-//      delay(1000);
-//      esp_spp_cb_event_t event;
-//      band2=1;
-//      if(event == ESP_SPP_CLOSE_EVT){
-//        band=1;
-//        Serial.println("ya no Valimos VERGA");
-//        delay(1000);
-//        }  
-//        Serial.println("Valimos BERGA");
-//    }
-    
-  }
-  else if (event == ESP_SPP_CLOSE_EVT  ) {
-    Serial.println("Cliente desconectado");
-    digitalWrite(LED_OFF,HIGH);
-    delay(3000);
-    digitalWrite(LED_OFF,LOW);
-    delay(500);
-    digitalWrite(LED_OFF,HIGH);
-    delay(3000);
-    digitalWrite(LED_OFF,LOW);
-    band=1; 
-  }
-//    while(band==1){
-//    digitalWrite(LED_OFF,HIGH);
-//    delay(1000);                      //Estoy desconectado
-//    digitalWrite(LED_OFF,LOW);
-//    if (event == ESP_SPP_SRV_OPEN_EVT  ) {
-//      band=0;
-//      }
-//    }
-//    while(band==0){
-//      digitalWrite(LED,HIGH);
-//      delay(500);
-//      digitalWrite(LED,LOW);
-//      if (event == ESP_SPP_CLOSE_EVT  ) {
-//        band=1;
-//        }
-//    }
-}
-  /*else if (event == ESP_SPP_DATA_IND_EVT ) {
-    Serial.println("Datos recibidos");
-    /*while (BT.available()) { // Mientras haya datos por recibir
-      int incoming = BT.read(); // Lee un byte de los datos recibidos
-      Serial.print("Recibido: ");
-      Serial.println(incoming);
-      if (incoming == 49) { // 1 en ASCII
-        digitalWrite(LED, HIGH); // Encender el LED
-        BT.println("LED encendido"); // Envía el texto a través del puerto Serial del BT
-      }
-      else if (incoming == 48) { // 0 en ASCII
-        digitalWrite(LED, LOW); // Apagar el LED
-        BT.println("LED apagado"); // Envía el texto a través del puerto Serial del BT
-      }
-    }
-  }*/
-void setup() {
-  Serial.begin(115200); // Inicializando la conexión serial para debug
-  BT.begin("ESP32_LED_Control"); // Nombre de tu Dispositivo Bluetooth y en modo esclavo
-  Serial.println("El dispositivo Bluetooth está listo para emparejar");
-  BT.register_callback(callback_function); // Registramos la función "callback_function" como función callback.
-  pinMode (LED, OUTPUT); // Cambia el PIN del led a OUTPUT
-  pinMode (LED_OFF, OUTPUT);
-  
-=======
 
 TinyGPSPlus gps;
+
+void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
+if (event == ESP_SPP_START_EVT) {
+    Serial.println("Inicializado ESP");
+  }
+if (event == ESP_SPP_SRV_OPEN_EVT ) {
+        band_on = 1;
+        band_off=0;
+        Serial.println("Cliente conectado");
+        BT.println("1");
+        digitalWrite(LED_DESCONECTADO,LOW);
+        digitalWrite(LED_CONECTADO,HIGH);
+        } 
+
+else if (event == ESP_SPP_CLOSE_EVT){
+        band_on = 0;
+        band_off=1;
+        Serial.println("Cliente desconectado");
+        BT.println("0");
+        digitalWrite(LED_CONECTADO,LOW);
+        digitalWrite(LED_DESCONECTADO,HIGH);
+        }
+}
 
 void setup() {
   Serial.begin(115200);
->>>>>>> c545c9f57e5761569359a7dcf1412dce04ac2bf8
   //Begin serial communication Arduino IDE (Serial Monitor)
-
+  BT.begin("ESP32_LED_Control"); // Nombre de tu Dispositivo Bluetooth y en modo esclavo
+  Serial.println("El dispositivo Bluetooth está listo para emparejar");
+  BT.register_callback(callback_function); // Registramos la función "callback_function" como función callback.
+  pinMode (LED_CONECTADO, OUTPUT); // Cambia el PIN del led a OUTPUT
+  pinMode (LED_DESCONECTADO, OUTPUT);
+  pinMode (MOTOR_ON, OUTPUT);
+  pinMode (MOTOR_OFF, OUTPUT);
   //Begin serial communication Neo6mGPS
   neogps.begin(9600, SERIAL_8N1, RXD2, TXD2);
   
@@ -137,11 +79,22 @@ void setup() {
 }
 
 void loop() {
-<<<<<<< HEAD
-  esp_spp_cb_event_t event;  
-=======
+  
+    if (band_off == 0){
     
->>>>>>> c545c9f57e5761569359a7dcf1412dce04ac2bf8
+    digitalWrite(MOTOR_ON,HIGH);
+    delay(3000);//Tiempo en el que se va  a enrrollar el motor, hay que hacer pruebas para saber cuanto tiempo se puede estimar
+    digitalWrite(MOTOR_ON,LOW);
+  }
+  //PARA DESENRROLLAR EL MOTOR
+  else if(band_on == 1){
+    digitalWrite(MOTOR_OFF, HIGH);
+    delay(3000);
+    digitalWrite(MOTOR_OFF,LOW);
+    
+    
+  }
+    
   boolean newData = false;
   for (unsigned long start = millis(); millis() - start < 1000;)
   {
@@ -187,10 +140,6 @@ void print_speed()
     display.print("Lat: ");
     display.setCursor(50, 5);
     display.print(gps.location.lat(),6);
-<<<<<<< HEAD
-    
-=======
->>>>>>> c545c9f57e5761569359a7dcf1412dce04ac2bf8
 
     display.setCursor(25, 20);
     display.print("Lng: ");

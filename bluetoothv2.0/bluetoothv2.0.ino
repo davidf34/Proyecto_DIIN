@@ -6,6 +6,7 @@
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
+<<<<<<< HEAD
 #define LED 23
 #define LED_OFF 19
 int band=20;
@@ -70,6 +71,36 @@ void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
 //        }
 //    }
 }
+=======
+#define LED_CONECTADO 23
+#define LED_DESCONECTADO 19
+int band_on;
+int band_off;
+BluetoothSerial BT; // Objeto Bluetooth
+void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
+if (event == ESP_SPP_START_EVT) {
+    Serial.println("Inicializado ESP");
+  }
+if (event == ESP_SPP_SRV_OPEN_EVT ) {
+        band_on = 1;
+        band_off=0;
+        Serial.println("Cliente conectado");
+        BT.println("1");
+        digitalWrite(LED_DESCONECTADO,LOW);
+        digitalWrite(LED_CONECTADO,HIGH);
+        } 
+
+else if (event == ESP_SPP_CLOSE_EVT){
+        band_on = 0;
+        band_off=1;
+        Serial.println("Cliente desconectado");
+        BT.println("0");
+        digitalWrite(LED_CONECTADO,LOW);
+        digitalWrite(LED_DESCONECTADO,HIGH);
+        }
+}
+
+>>>>>>> c545c9f57e5761569359a7dcf1412dce04ac2bf8
   /*else if (event == ESP_SPP_DATA_IND_EVT ) {
     Serial.println("Datos recibidos");
     /*while (BT.available()) { // Mientras haya datos por recibir
@@ -92,6 +123,7 @@ void setup() {
   BT.begin("ESP32_LED_Control"); // Nombre de tu Dispositivo Bluetooth y en modo esclavo
   Serial.println("El dispositivo Bluetooth está listo para emparejar");
   BT.register_callback(callback_function); // Registramos la función "callback_function" como función callback.
+<<<<<<< HEAD
   pinMode (LED, OUTPUT); // Cambia el PIN del led a OUTPUT
   pinMode (LED_OFF, OUTPUT);
   
@@ -124,4 +156,12 @@ void loop() {
 //    digitalWrite(LED_OFF,LOW);
 //    delay(500);
 //    }
+=======
+  pinMode (LED_CONECTADO, OUTPUT); // Cambia el PIN del led a OUTPUT
+  pinMode (LED_DESCONECTADO, OUTPUT);
+  
+}
+void loop() {
+
+>>>>>>> c545c9f57e5761569359a7dcf1412dce04ac2bf8
 }
