@@ -91,7 +91,7 @@ void loop() {
     digitalWrite(MOTOR_OFF, HIGH);
     delay(3000);
     digitalWrite(MOTOR_OFF,LOW);
-    cont++;
+    
     
   }
     
