@@ -1,0 +1,73 @@
+Added Component: Designator=J2(SIM800L)
+Added Component: Designator=P4(HDR1X2)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=P5(HDR1X2)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=U1(STM-L293D-16)
+Add component (AddParameter): Name = "Category"; Value = "IntegratedCircuits(ICs)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current - Output / Channel"; Value = "600mA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current - Peak Output"; Value = "1.2A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet URL"; Value = "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000059.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Version"; Value = "07/2003"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Dynamic Catalog"; Value = "HalfBridge"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Family"; Value = "PMIC-MOSFET,BridgeDrivers-InternalSwitch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Input Type"; Value = "Non-Inverting"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "STMicroelectronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer URL"; Value = "http://www.st.com/"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Technology"; Value = "ThroughHole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Type"; Value = "ThroughHole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Outputs"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "On-State Resistance"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Temperature"; Value = "-40°C~150°C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Other Names"; Value = "497-2936-5"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Other Related Documents"; Value = "L293DViewAllSpecifications"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package / Case"; Value = "16-DIP(0.300",7.62mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Description"; Value = "16-Pin Thru-Hole Dual-In-Line, Body 20 x 6.85 mm, Pitch 2.54 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Reference"; Value = "DIP-16"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tube"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PartNumber"; Value = "L293D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Series"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Standard Package"; Value = "25"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Device Package"; Value = "16-PowerDIP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Type"; Value = "HalfBridge"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage - Supply"; Value = "4.5V~36V"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=J2-6
+Added Pin To Net: NetName=5V Pin=D3-2
+Added Pin To Net: NetName=5V Pin=J1-30
+Added Pin To Net: NetName=5V Pin=J2-2
+Added Pin To Net: NetName=5V Pin=K1-COIL1
+Added Net: Name=5V
+Added Pin To Net: NetName=Alimetacion motor + Pin=P4-1
+Added Pin To Net: NetName=Alimetacion motor + Pin=U1-1
+Added Pin To Net: NetName=Alimetacion motor + Pin=U1-8
+Added Pin To Net: NetName=Alimetacion motor + Pin=U1-16
+Added Net: Name=Alimetacion motor +
+Added Pin To Net: NetName=GNDMOTOR Pin=P4-2
+Added Pin To Net: NetName=GNDMOTOR Pin=U1-4
+Added Pin To Net: NetName=GNDMOTOR Pin=U1-5
+Added Pin To Net: NetName=GNDMOTOR Pin=U1-9
+Added Pin To Net: NetName=GNDMOTOR Pin=U1-10
+Added Pin To Net: NetName=GNDMOTOR Pin=U1-12
+Added Pin To Net: NetName=GNDMOTOR Pin=U1-13
+Added Pin To Net: NetName=GNDMOTOR Pin=U1-15
+Added Net: Name=GNDMOTOR
+Added Pin To Net: NetName=Motor_In1 Pin=J1-4
+Added Pin To Net: NetName=Motor_In1 Pin=U1-2
+Added Net: Name=Motor_In1
+Added Pin To Net: NetName=Motor_In2 Pin=J1-5
+Added Pin To Net: NetName=Motor_In2 Pin=U1-7
+Added Net: Name=Motor_In2
+Added Pin To Net: NetName=NetP5_1 Pin=P5-1
+Added Pin To Net: NetName=NetP5_1 Pin=U1-3
+Added Net: Name=NetP5_1
+Added Pin To Net: NetName=NetP5_2 Pin=P5-2
+Added Pin To Net: NetName=NetP5_2 Pin=U1-6
+Added Net: Name=NetP5_2
+Added Member To Class: ClassName=DIINproject Member=Component J2 SIM800L
+Added Member To Class: ClassName=DIINproject Member=Component P4 Alimentacion 9V 
+Added Member To Class: ClassName=DIINproject Member=Component P5 Salida Motor
+Added Member To Class: ClassName=DIINproject Member=Component U1 L293D

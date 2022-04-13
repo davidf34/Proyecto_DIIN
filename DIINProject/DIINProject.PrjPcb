@@ -35,6 +35,12 @@ OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
 IncludeDesignInRelease=0
+CrossRefSheetStyle=1
+CrossRefLocationStyle=1
+CrossRefPorts=3
+CrossRefCrossSheets=1
+CrossRefSheetEntries=0
+CrossRefFollowFromMainSettings=1
 
 [Preferences]
 PrefsVaultGUID=
@@ -58,7 +64,7 @@ GenerateClassCluster=0
 DocumentUniqueId=DXWAWWHW
 
 [Document2]
-DocumentPath=D:\User\Descargas\altium-designer-main\altium-designer-main\PcbLibBruno.PcbLib
+DocumentPath=PcbLibBruno.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -75,7 +81,7 @@ GenerateClassCluster=0
 DocumentUniqueId=BHYRVSLQ
 
 [Document3]
-DocumentPath=D:\User\Descargas\altium-designer-main\altium-designer-main\SchlibBruno.SchLib
+DocumentPath=SchlibBruno.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -109,7 +115,7 @@ GenerateClassCluster=0
 DocumentUniqueId=NKJLCIIU
 
 [Document5]
-DocumentPath=D:\User\Descargas\JQC-3F-1C-24VDC\JQC-3F-1C-24VDC.SchLib
+DocumentPath=JQC-3F-1C-24VDC.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -126,7 +132,7 @@ GenerateClassCluster=0
 DocumentUniqueId=EESLWWHH
 
 [Document6]
-DocumentPath=D:\User\Descargas\JQC-3F-1C-24VDC\RELAY_JQC-3F-1C-24VDC.PcbLib
+DocumentPath=RELAY_JQC-3F-1C-24VDC.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -141,6 +147,40 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=MOBMHPXM
+
+[Document7]
+DocumentPath=Modulos.SchLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=MDYRTNFF
+
+[Document8]
+DocumentPath=Modulos.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=JWORITNW
 
 [Configuration1]
 Name=Sources
