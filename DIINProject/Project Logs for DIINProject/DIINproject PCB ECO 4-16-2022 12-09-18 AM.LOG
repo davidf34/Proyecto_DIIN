@@ -1,0 +1,7 @@
+Change Component Comment : Designator=Vin Old Comment=Alimentacion 9V  New Comment=Alimentacion 9V
+Added Component: Designator=J?(Reductor)
+Added Pin To Net: NetName=Alimetacion motor + Pin=J?-1
+Added Pin To Net: NetName=GNDMOTOR Pin=J?-2
+Added Pin To Net: NetName=5V Pin=J?-3
+Added Pin To Net: NetName=GND Pin=J?-4
+Added Member To Class: ClassName=DIINproject Member=Component J? Reductor
