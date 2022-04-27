@@ -3,56 +3,62 @@
   by Daniel Carrasco -> https://www.electrosoftcloud.com/
 */
 #include "BluetoothSerial.h"
+#include "esp_adc_cal.h"
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
 #define LED_CONECTADO 23
 #define LED_DESCONECTADO 19
-#define MOTOR_ON  10
-#define MOTOR_OFF 11
-#define Alarma 2
+#define MOTOR_ON  4
+#define MOTOR_OFF 2
+#define Alarma 19
 
 
 int band_on;
 int band_off;
 int band_rta;
-BluetoothSerial BT; // Objeto Bluetooth
+int band_alarma;
+BluetoothSerial SerialBT; // Objeto Bluetooth
 
+void conexion();
 
 void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
 if (event == ESP_SPP_START_EVT) {
     Serial.println("Inicializado ESP");
   }
 if (event == ESP_SPP_SRV_OPEN_EVT ) {
-        int rta;
-        band_on = 1;
-        band_off=0;
+
+        /*band_on = 1;
+        band_off=0;*/
         Serial.println("Cliente conectado");
-        BT.println("1");
         digitalWrite(LED_DESCONECTADO,LOW);
         digitalWrite(LED_CONECTADO,HIGH);
         
-        BT.println("¡Bienvenido al sistema de seguridad para bicicletas!");
-        BT.println("¿Desea asegurar su bicicleta? (Si/No)");
-        rta = BT.read(); 
-        if(rta == "Si"){
-          band_on=1;
-        }
-        else if(rta == "No"){
-         // band_off=1;
-          band_rta =1;
-        }
-        else{
-           BT.println("Por favor ingrese una respuesta válida.");
-        }
-        
-        } 
-
+        SerialBT.println("¡Bienvenido al sistema de seguridad para bicicletas!");
+        SerialBT.println("¿Desea asegurar su bicicleta? (S/N)");
+        conexion();
+        //rta = BT.read(); 
+        //Serial.println( rta );
+      /* if(SerialBT.available()){
+            char rta = SerialBT.read();
+           if(rta == 'S' || rta == 'N'){
+              if(rta == 'S'){
+                  band_on=1;
+                  SerialBT.println("Usted tiene asegurada su bicicleta.");
+                }
+              else if(rta == 'N'){
+                  band_rta =1;
+                }
+              else{
+                 SerialBT.println("Por favor ingrese una respuesta válida.");
+                }
+           } 
+         }  */
+      }
 else if (event == ESP_SPP_CLOSE_EVT && band_on==1){
         band_alarma = 1;
         
         Serial.println("Cliente desconectado");
-        BT.println("0");
         digitalWrite(LED_CONECTADO,LOW);
         digitalWrite(LED_DESCONECTADO,HIGH);
         }
@@ -74,12 +80,31 @@ else if (event == ESP_SPP_CLOSE_EVT && band_on==1){
       }
     }
   }*/
-
+void conexion(){
+    if(SerialBT.available()){
+            char rta = SerialBT.read();
+           if(rta == 'S' || rta == 'N'){
+              if(rta == 'S'){
+                  band_on=1;
+                  //SerialBT.println("Usted tiene asegurada su bicicleta.");
+                 
+                }
+              else if(rta == 'N'){
+                  band_rta =1;
+                 
+                }
+              else{
+                 SerialBT.println("Por favor ingrese una respuesta válida.");
+                 
+                }
+           } 
+      }
+}
 void setup() {
-  Serial.begin(115200); // Inicializando la conexión serial para debug
-  BT.begin("ESP32_LED_Control"); // Nombre de tu Dispositivo Bluetooth y en modo esclavo
+  Serial.begin(9600); // Inicializando la conexión serial para debug
+  SerialBT.begin("ESP32_LED_Control"); // Nombre de tu Dispositivo Bluetooth y en modo esclavo
   Serial.println("El dispositivo Bluetooth está listo para emparejar");
-  BT.register_callback(callback_function); // Registramos la función "callback_function" como función callback.
+  SerialBT.register_callback(callback_function); // Registramos la función "callback_function" como función callback.
   pinMode (LED_CONECTADO, OUTPUT); // Cambia el PIN del led a OUTPUT
   pinMode (LED_DESCONECTADO, OUTPUT);
   pinMode (MOTOR_ON, OUTPUT);
@@ -97,13 +122,14 @@ void loop() {
   }
   //PARA DESENRROLLAR EL MOTOR
   else if(band_on == 1){
+    SerialBT.println("Usted tiene asegurada su bicicleta.");
     digitalWrite(MOTOR_OFF, HIGH);
     delay(2000);
     digitalWrite(MOTOR_OFF,LOW);
     
   }
   else if(band_rta == 1){
-    BT.println("¡Peligro!, seguridad desactivada.");
+    SerialBT.println("¡Peligro!, seguridad desactivada.");
   }
   else if(band_alarma == 1){
      digitalWrite(Alarma,HIGH);
