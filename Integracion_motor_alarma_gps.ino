@@ -35,17 +35,13 @@ HardwareSerial neogps(1);
 /*********************************************************************************/
 
 
-int band_quitar_alarma;
-int band_on;
-int band_off;
-int band_rta;
-int band_alarma;
-int band_asegurar;
-int band_desasegurar;
-int band_return;
-int band_afirmativo;
-int band_preguntar;
-int band_salida;
+int band_quitar_alarma;//si
+int band_on;//si
+int band_off;//si
+int band_alarma;//si
+int band_asegurar; //si
+int band_desasegurar;//si
+int band_salida;//si revisaaaar
 BluetoothSerial BT; 
 TinyGPSPlus gps;
 
@@ -60,8 +56,8 @@ void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
     Serial.println("Inicializado ESP");
   }
   if (event == ESP_SPP_SRV_OPEN_EVT) {
-    /*band_alarma = 0;
-    band_on = 1;*/
+    /*band_alarma = 0;*/
+    //band_on = 1;
    /* band_alarma = 0;*/
     
       /*band_off=0;*/
@@ -142,7 +138,7 @@ void setup() {
 
   /***************************************************************************/
   Serial.begin(9600); // Inicializando la conexión serial para debug
-  BT.begin("ESP32_LED_Control"); // Nombre de tu Dispositivo Bluetooth y en modo esclavo
+  BT.begin("ESP32_LED_Control_PRO"); // Nombre de tu Dispositivo Bluetooth y en modo esclavo
   Serial.println("El dispositivo Bluetooth está listo para emparejar");
   BT.register_callback(callback_function); // Registramos la función "callback_function" como función callback.
   pinMode (LED_CONECTADO, OUTPUT); // Cambia el PIN del led a OUTPUT
@@ -229,7 +225,7 @@ if(band_desasegurar == 1) {
     if (rta == 'S' || rta == 'N'){
       if (rta == 'S') {
         digitalWrite(MOTOR_OFF, HIGH);
-        delay(2000);
+        delay(3000);
         digitalWrite(MOTOR_OFF, LOW);  
         BT.println("\n ¡Peligro!, seguridad desactivada2.");
         band_asegurar = 2;
