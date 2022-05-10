@@ -10,10 +10,10 @@
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run 'make menuconfig' to and enable it
 #endif
-#define LED_CONECTADO 19
+#define LED_CONECTADO 19 //LED CONECTADO
 #define MOTOR_ON  4
 #define MOTOR_OFF 5
-#define Alarma 23 //Alarma y led 
+#define Alarma 23 //Alarma y led DESCONECTADO
 
 /**********************************GPS********************************************/
 
@@ -38,10 +38,13 @@ HardwareSerial neogps(1);
 int band_quitar_alarma;//si
 int band_on;//si
 int band_off;//si
-int band_alarma;//si
+int band_alarma=0;//si
 int band_asegurar; //si
 int band_desasegurar;//si
-int band_salida;//si revisaaaar
+int band_salida=2;//si revisaaaar
+int band_alarma_enc = 0;
+int band_desconectado;
+String aviso="Usted se encuentra desconectado";
 BluetoothSerial BT; 
 TinyGPSPlus gps;
 
@@ -49,23 +52,36 @@ TinyGPSPlus gps;
 void print_speed();
 
 void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
+
   if (event == ESP_SPP_START_EVT) {
     Serial.println("Inicializado ESP");
   }
-  if (event == ESP_SPP_SRV_OPEN_EVT) {
-   
-    Serial.println("Cliente conectado");
-    //digitalWrite(Alarma, LOW);
+  if (event == ESP_SPP_SRV_OPEN_EVT || band_desconectado == 1) {
+ 
+    digitalWrite(Alarma, LOW);
+    digitalWrite(MOTOR_ON, LOW);
     digitalWrite(LED_CONECTADO, HIGH);
+    BT.println("*a");
+    BT.println("Usted se encuentra conectado.");
+    BT.println("*");
+    delay(3000);
     band_asegurar = 1;
     
 
   }
-  if (event == ESP_SPP_CLOSE_EVT && band_salida !=1) {
-    band_alarma = 1;
+  //acá entra cuando se desconecta el bluetooth y el usuario NO le ha dado en la opción de salida.
+  
+  if (event == ESP_SPP_CLOSE_EVT && band_salida ==2) {
     Serial.println("Cliente desconectado");
     digitalWrite(LED_CONECTADO, LOW);
-    //digitalWrite(Alarma, HIGH);
+    digitalWrite(Alarma, HIGH);
+    digitalWrite(MOTOR_ON, HIGH);
+    delay (2000);
+    digitalWrite(MOTOR_ON,LOW);
+    //band_desconectado = 1;
+    
+    
+    
   }
 }
 /*************************************FUNCIONES FUERA DE LOS MODULOS*************************************************/
@@ -150,7 +166,7 @@ void loop() {
 if(band_asegurar == 1) {
   
     char rta = BT.read();
-    if (rta == 'S' || rta == 'N' || rta == 'E'){
+    if (rta == 'S' || rta == 'N' || rta == 'E'||rta == 'A'||rta == 'D'){
       if (rta == 'S') {
         digitalWrite(MOTOR_ON, HIGH);
         delay(2000);
@@ -160,12 +176,34 @@ if(band_asegurar == 1) {
         digitalWrite(MOTOR_OFF, HIGH);
         delay(2000);
         digitalWrite(MOTOR_OFF, LOW);  
+        
       }
       
       if(rta == 'E'){
         band_salida = 1;
+
+
+        BT.println("*a");
+        BT.println("Usted se encuentra desconectado.");
+        BT.println("*");
+        digitalWrite(LED_CONECTADO, LOW);
+        delay(1000);
         exit(-1);
+        
+        band_quitar_alarma=0;
+        band_on=0;
+        band_off=0;
+        band_alarma=0;
+        band_asegurar=0; 
+        band_desasegurar=0;
+        band_alarma_enc = 0;
     }
+      if(rta == 'A'){
+        digitalWrite(Alarma,HIGH);
+      }
+      if(rta == 'D'){
+        digitalWrite(Alarma,LOW);
+      }
   }
  }
 }
@@ -206,6 +244,20 @@ void print_speed(){
     display.print("ALT:");
     display.setCursor(95, 50);
     display.print(gps.altitude.meters(), 0);
+
+
+    /****************************************/
+    BT.println("*u");
+    
+    BT.println("Lat: ");
+    BT.println(gps.location.lat(),6);
+    BT.println("Lng: ");
+    BT.println(gps.location.lng(),6);
+    BT.println("Speed(Km/h): ");
+    BT.println(gps.speed.kmph());
+    
+    BT.println("*");
+    /**************************************/
 
     display.display();
     
