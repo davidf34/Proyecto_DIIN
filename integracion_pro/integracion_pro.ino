@@ -1,8 +1,6 @@
 /*
-  Program to control LED (ON/OFF) from ESP32 using Serial Bluetooth
-  by Daniel Carrasco -> https://www.electrosoftcloud.com/
+  Sistema antirrobo de bicicletas
 */
-const String PHONE = "+573187898377";
 
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
