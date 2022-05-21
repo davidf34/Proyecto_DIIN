@@ -2,6 +2,8 @@
   Program to control LED (ON/OFF) from ESP32 using Serial Bluetooth
   by Daniel Carrasco -> https://www.electrosoftcloud.com/
 */
+const String PHONE = "+573187898377";
+
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <TinyGPS++.h>
@@ -76,7 +78,7 @@ void callback_function(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
     digitalWrite(LED_CONECTADO, LOW);
     digitalWrite(Alarma, HIGH);
     digitalWrite(MOTOR_ON, HIGH);
-    delay (2000);
+    delay (6000);
     digitalWrite(MOTOR_ON,LOW);
     //band_desconectado = 1;
     
@@ -169,12 +171,12 @@ if(band_asegurar == 1) {
     if (rta == 'S' || rta == 'N' || rta == 'E'||rta == 'A'||rta == 'D'){
       if (rta == 'S') {
         digitalWrite(MOTOR_ON, HIGH);
-        delay(2000);
+        delay(6000);
         digitalWrite(MOTOR_ON, LOW);  
       }
       if (rta == 'N') {
         digitalWrite(MOTOR_OFF, HIGH);
-        delay(2000);
+        delay(6000);
         digitalWrite(MOTOR_OFF, LOW);  
         
       }
