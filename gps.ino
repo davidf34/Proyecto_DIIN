@@ -2,7 +2,7 @@
 #include <Adafruit_SSD1306.h>
 #include <TinyGPS++.h>
 //Hola cambios 1
-
+//Cambioooooooooooooooooooooooooooooooooooooooooo____
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
